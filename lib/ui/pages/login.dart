@@ -21,14 +21,14 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        backgroundColor: Colors.orange[600],
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           const Text(""),
           Center(
-            child: Image.network(
-                'https://cdn0.iconfinder.com/data/icons/brands-flat-2/192/windows-social-network-brand-logo-128.png'),
+            child: Image.network('https://i.imgur.com/bBqnymK.png'),
           ),
           Center(
             child: Container(
@@ -60,18 +60,9 @@ class _LoginPageState extends State<LoginPage> {
               },
             ),
           ),
-          Center(
-            child: MaterialButton(
-              child: const Text('Chat'),
-              onPressed: () {
-                Navigator.pushNamed(context, '/chat');
-              },
-            ),
-          ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-          onPressed: _login, tooltip: 'LogIn', child: const Icon(Icons.login)),
+      backgroundColor: Colors.orange[600],
     );
   }
 }
