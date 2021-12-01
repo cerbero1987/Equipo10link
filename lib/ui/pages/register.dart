@@ -9,7 +9,18 @@ class RegisterPage extends StatefulWidget {
   State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _RegisterPageState extends State<RegisterPage> {
+class formularioRegistro extends StatefulWidget {
+  const formularioRegistro({Key? key}) : super(key: key);
+
+  @override
+  formularioRegistroEstado createState() {
+    return formularioRegistroEstado();
+  }
+}
+
+class formularioRegistroEstado extends State<formularioRegistro> {
+  final _formkey = GlobalKey<FormState>();
+  bool _checkBoxValue = false;
   void _signin() {
     setState(() {
       Navigator.pop(context);
@@ -18,93 +29,154 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+    return Form(
+      key: _formkey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Center(
             child: Container(
-              margin: const EdgeInsets.all(20.0),
-              child: const TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Usuario',
-                ),
+              margin: const EdgeInsets.all(10.0),
+              child: TextFormField(
+                decoration: const InputDecoration(
+                    border: OutlineInputBorder(), labelText: 'usuario'),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Por favor ingresa datos';
+                  }
+                },
               ),
             ),
           ),
           Center(
             child: Container(
-              margin: const EdgeInsets.all(20.0),
-              child: const TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Nombre',
-                ),
+              margin: const EdgeInsets.all(10.0),
+              child: TextFormField(
+                decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Nombres y Apellidos'),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Por favor ingresa datos';
+                  }
+                },
               ),
             ),
           ),
           Center(
             child: Container(
-              margin: const EdgeInsets.all(20.0),
-              child: const TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Apellido',
-                ),
+              margin: const EdgeInsets.all(10.0),
+              child: TextFormField(
+                decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Correo electronico'),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Por favor ingresa datos';
+                  }
+                },
               ),
             ),
           ),
           Center(
             child: Container(
-              margin: const EdgeInsets.all(20.0),
-              child: const TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Correo',
-                ),
+              margin: const EdgeInsets.all(10.0),
+              child: TextFormField(
+                obscureText: true,
+                decoration: const InputDecoration(
+                    border: OutlineInputBorder(), labelText: 'Contraseña'),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Por favor ingresa datos';
+                  }
+                },
               ),
             ),
           ),
           Center(
             child: Container(
-              margin: const EdgeInsets.all(20.0),
-              child: const TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Contraseña',
-                ),
+              margin: const EdgeInsets.all(10.0),
+              child: TextFormField(
+                obscureText: true,
+                decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Repetir Contraseña'),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Por favor ingresa datos';
+                  }
+                },
               ),
             ),
           ),
+          Center(
+              child: CheckboxListTile(
+            controlAffinity: ListTileControlAffinity.leading,
+            title: const Text(
+                'Acepto los términos de uso y políticas de privacidad. Autorizo el tratamiento de mis datos personales'),
+            value: _checkBoxValue,
+            onChanged: (value) {
+              setState(() {
+                _checkBoxValue = value!;
+              });
+            },
+          )),
           Center(
             child: Container(
-              margin: const EdgeInsets.all(20.0),
-              child: const TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Re-Contraseña',
-                ),
-              ),
+              margin: EdgeInsets.all(5.0),
             ),
           ),
-          Center(
-            child: MaterialButton(
-              child: const Text('Volver'),
+          TextButton(
+              style: TextButton.styleFrom(
+                padding: const EdgeInsets.all(16.0),
+                primary: Colors.black,
+                textStyle:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                backgroundColor: Colors.orange,
+              ),
               onPressed: () {
-                Navigator.pop(context);
+                if (_formkey.currentState!.validate()) {
+                  Scaffold.of(context).showSnackBar(
+                      SnackBar(content: Text('Procesando Datos')));
+                  _signin;
+                }
               },
-            ),
-          ),
+              child: const Align(
+                alignment: Alignment.center,
+                child: Text('Guardar'),
+              )),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-          onPressed: _signin,
-          tooltip: 'Registrar',
-          child: const Icon(Icons.add)),
+    );
+  }
+}
+
+class _RegisterPageState extends State<RegisterPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+        backgroundColor: Colors.orange[600],
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            Container(
+              height: 650.0,
+              alignment: Alignment.center,
+              child: formularioRegistro(),
+            ),
+            Container(
+              height: 5.0,
+              alignment: Alignment.center,
+            )
+          ],
+        ),
+      ),
+      backgroundColor: Colors.orange[600],
     );
   }
 }

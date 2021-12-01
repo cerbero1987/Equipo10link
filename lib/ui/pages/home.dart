@@ -32,31 +32,98 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        backgroundColor: Colors.orange[600],
       ),
       body: Column(
         children: [
           Expanded(
-              flex: 3,
+              flex: 1,
+              child: Row(
+                children: [
+                  // Barra de Busqueda
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      color: Colors.orange[500],
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: const <Widget>[
+                          Icon(
+                            Icons.home,
+                            color: Colors.black,
+                            size: 40,
+                          ),
+                          Icon(
+                            Icons.social_distance_outlined,
+                            color: Colors.black,
+                            size: 40,
+                          ),
+                          Icon(
+                            Icons.new_label,
+                            color: Colors.black,
+                            size: 40,
+                          ),
+                          Icon(
+                            Icons.chat,
+                            color: Colors.black,
+                            size: 40,
+                          ),
+                          Icon(
+                            Icons.gps_fixed,
+                            color: Colors.black,
+                            size: 40,
+                          ),
+                          Icon(
+                            Icons.menu,
+                            color: Colors.black,
+                            size: 40,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+                //
+              )),
+          Expanded(
+              flex: 1,
               child: Row(
                 children: [
                   // Mapa de Cercanos
                   Expanded(
-                    flex: 3,
-                    child: Container(
-                      margin: const EdgeInsets.all(20.0),
-                      child: Image.network(
-                          'https://image.shutterstock.com/image-vector/vector-illustration-map-city-gps-600w-334438847.jpg'),
-                    ),
-                  ),
+                      flex: 1,
+                      child: Row(
+                        children: [
+                          // Barra de Busqueda
+                          Expanded(
+                            flex: 1,
+                            child: Container(
+                              margin: const EdgeInsets.all(10.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: const <Widget>[
+                                  Icon(
+                                    Icons.sentiment_satisfied_alt,
+                                    color: Colors.black,
+                                    size: 60,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                        //
+                      )),
                   // Barra de Busqueda
                   Expanded(
-                    flex: 9,
+                    flex: 3,
                     child: Container(
-                      margin: const EdgeInsets.all(20.0),
+                      margin: const EdgeInsets.all(10.0),
                       child: const TextField(
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
-                          labelText: 'Buscar Post',
+                          labelText: 'Tu estado',
                         ),
                       ),
                     ),
@@ -115,6 +182,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
+      backgroundColor: Colors.orange[600],
     );
   }
 }
